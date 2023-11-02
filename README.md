@@ -8,6 +8,7 @@ Robotic arm with machine vision and its os is ROS2.
 ```python
 # HardWare
 Jetson Nano
+Jetson Orin Nano
 
 # os
 Ubuntu20.04 for ROS2

@@ -1,0 +1,3 @@
+<launch>
+    <node name="fk" pkg="dofbot_moveit" type="dofbot_kinematics_fk" output="screen"/>
+</launch>

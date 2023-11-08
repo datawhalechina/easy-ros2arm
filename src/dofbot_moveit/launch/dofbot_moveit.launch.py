@@ -13,18 +13,15 @@ import os
 
 def generate_launch_description():
     urdf_tutorial_path = get_package_share_path('dofbot_moveit')
-    default_model_path = os.path.join(urdf_tutorial_path, 'urdf/dofbot.urdf')
-    default_rviz_config_path = os.path.join(urdf_tutorial_path, 'rviz/dofbot.rviz')
+    default_model_path = os.path.join(urdf_tutorial_path, 'urdf', 'dofbot.urdf')
 
     gui_arg = DeclareLaunchArgument(name='gui', default_value='false', choices=['true', 'false'],
                                     description='Flag to enable joint_state_publisher_gui')
-    model_arg = DeclareLaunchArgument(name='model', default_value=str(default_model_path),
-                                      description='Absolute path to robot urdf file')
-    rviz_arg = DeclareLaunchArgument(name='rvizconfig', default_value=str(default_rviz_config_path),
-                                     description='Absolute path to rviz config file')
 
-    robot_description = ParameterValue(Command([FindExecutable(name='xacro'), ' ', LaunchConfiguration('model')]),
-                                       value_type=str)
+    rviz_base = os.path.join(urdf_tutorial_path, 'rviz')
+    rviz_config = os.path.join(rviz_base, 'dofbot.rviz')
+
+    robot_description = Command([FindExecutable(name='xacro'), ' ', default_model_path, ' hand:=true'])
     # model_path = LaunchConfiguration('model')
     # with open(default_model_path, "r") as f:
     #     robot_description = f.read()
@@ -52,13 +49,12 @@ def generate_launch_description():
         executable='rviz2',
         name='rviz2',
         output='screen',
-        arguments=['-d', LaunchConfiguration('rvizconfig')],
+        arguments=['-d', rviz_config],
+        parameters=[robot_description]
     )
 
     return LaunchDescription([
         gui_arg,
-        model_arg,
-        rviz_arg,
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
         robot_state_publisher_node,

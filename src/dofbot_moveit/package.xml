@@ -11,6 +11,9 @@
 
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
+  <depend>moveit_ros_planning_interface</depend>
+  <depend>kdl_parser</depend>
+  <depend>orocos_kdl</depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>xacro</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>

@@ -19,6 +19,10 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(kdl_parser REQUIRED)
+# https://github.com/ros2/orocos_kdl_vendor
+find_package(orocos_kdl REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -35,5 +39,20 @@ install(
   DIRECTORY launch urdf rviz meshes
   DESTINATION share/${PROJECT_NAME}
 )
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+  ${orocos_kdl_INCLUDE_DIRS}
+)
+
+# 机械臂在Rviz中随机运动
+add_executable(random_move src/random_move.cpp)
+ament_target_dependencies(random_move rclcpp moveit_ros_planning_interface)
+#target_link_libraries(random_move ${catkin_LIBRARIES} ${orocos_kdl_LIBRARIES})
+
+install(TARGETS
+random_move
+DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

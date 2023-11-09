@@ -27,22 +27,21 @@ colors = [[random.randint(0, 255) for _ in range(3)] for _ in range(len(names))]
 
 class garbage_identify:
     def __init__(self):
-        # 初始化图像
         self.frame = None
-        # 创建机械臂实例
         self.arm = Arm_Lib.Arm_Device()
+        # Robotic arm recognition position adjustment
         # 机械臂识别位置调节
         self.xy = [90, 130]
         self.garbage_index=0
-        # 创建垃圾识别抓取实例
         self.grap_move = garbage_grap_move()
-        # 创建节点句柄
         self.n = rospy.init_node('dofbot_garbage', anonymous=True)
-        # 创建用于调用的ROS服务的句柄。
+        # Creates a handle to the ROS service to invoke.
+        # 创建用于调用的ROS服务的句柄
         self.client = rospy.ServiceProxy("dofbot_kinemarics", kinemarics)
 
     def garbage_grap(self, msg, xy=None):
         '''
+        Execute grab function
         执行抓取函数
         :param msg: {name:pos,...}
         '''
@@ -52,26 +51,27 @@ class garbage_identify:
             sleep(0.5)
         for index, name in enumerate(msg):
             try:
+                # Here, ROS inversely solves the communication to obtain the rotation angle of each joint
                 # 此处ROS反解通讯,获取各关节旋转角度
                 joints = self.server_joint(msg[name])
-#                 print(joints)
+                # print(joints)
+                # call the move function
                 # 调取移动函数
                 self.grap_move.arm_run(str(name), joints)
             except Exception:
                 print("sqaure_pos empty")
-        # 初始位置
         joints_0 = [self.xy[0], self.xy[1], 0, 0, 90, 30]
+        # move to initial position
         # 移动至初始位置
         self.arm.Arm_serial_servo_write6_array(joints_0, 1000)
         sleep(1)
 
     def garbage_run(self, image):
         '''
-        执行垃圾识别函数
-        :param image: 原始图像
-        :return: 识别后的图像,识别信息(name, msg)
+        执行垃圾识别函数  Execute the garbage identification function
+        :param image: 原始图像     The original image
+        :return: 识别后的图像,识别信息(name, pos) Recognized image, identification information (name, pos)
         '''
-        # 规范输入图像大小
         self.frame = cv.resize(image, (640, 480))
         txt0 = 'Model-Loading...'
         msg={}
@@ -80,22 +80,26 @@ class garbage_identify:
             self.garbage_index+=1
             return self.frame,msg 
         if self.garbage_index>=3:
-            # 创建消息容器
-            try: msg = self.get_pos() # 获取识别消息
+            # get identifying message
+            # 获取识别消息
+            try: msg = self.get_pos()
             except Exception: print("get_pos NoneType")
             return self.frame, msg
 
     def get_pos(self):
         '''
-        获取识别信息
-        :return: 名称,位置
+        获取识别信息 Obtain identifying information
+        :return: 名称,位置 name, location
         '''
+        # Copy the original image to avoid interference during processing
         # 复制原始图像,避免处理过程中干扰
         img = self.frame.copy()
-        # 反转或排列数组的轴；返回修改后的数组。
+        # Reverse or arrange the axes of an array; return the modified array
+        # 反转或排列数组的轴；返回修改后的数组
         img = np.transpose(img, (2, 0, 1))
         img = torch.from_numpy(img).to(device)
-        # 数据类型转换uint8 to fp16/32
+        # Data type conversion uint8 to fp16/32
+        # 数据类型转换 uint8 to fp16/32
         img = img.float()
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3: img = img.unsqueeze(0)
@@ -133,8 +137,9 @@ class garbage_identify:
                         exec_time = curr_time - prev_time
                         info = "time: %.2f ms" % (1000 * exec_time)
                         # show time info
-#                         cv.putText(self.frame, text=info, org=(50, 70), fontFace=cv.FONT_HERSHEY_SIMPLEX,
-#                                    fontScale=1, color=(255, 0, 0), thickness=2)
+                        # cv.putText(self.frame, text=info, org=(50, 70), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                        #            fontScale=1, color=(255, 0, 0), thickness=2)
+                        # Calculate the position of the square in the image
                         # 计算方块在图像中的位置
                         (a, b) = (round(((point_x - 320) / 4000), 5), round(((480 - point_y) / 3000) * 0.8+0.19, 5))
                         msg[name] = (a, b)
@@ -142,12 +147,15 @@ class garbage_identify:
 
     def server_joint(self, posxy):
         '''
+        Post position request, get joint rotation angle
         发布位置请求,获取关节旋转角度
-        :param posxy: 位置点x,y坐标
-        :return: 每个关节旋转角度
+        :param posxy: 位置点x,y坐标 Location point x,y coordinates
+        :return: 每个关节旋转角度    Rotation angle of each joint
         '''
+        # Wait for the server to start
         # 等待server端启动
         self.client.wait_for_service()
+        # Create a message pack
         # 创建消息包
         request = kinemaricsRequest()
         request.tar_x = posxy[0]
@@ -156,6 +164,7 @@ class garbage_identify:
         try:
             response = self.client.call(request)
             if isinstance(response, kinemaricsResponse):
+                # Get the response result of the inverse solution
                 # 获取反解的响应结果
                 joints = [0, 0, 0, 0, 0]
                 joints[0] = response.joint1
@@ -163,6 +172,7 @@ class garbage_identify:
                 joints[2] = response.joint3
                 joints[3] = response.joint4
                 joints[4] = response.joint5
+                # Angle adjustment
                 # 角度调整
                 if joints[2] < 0:
                     joints[1] += joints[2] / 2

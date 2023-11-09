@@ -9,7 +9,7 @@ from time import sleep
 import smbus
 bus = smbus.SMBus(1)
 
-i2c_speech_addr = 0x30   #语音播报模块地址
+i2c_speech_addr = 0x30   #语音播报模块地址 Voice broadcast module address
 speech_date_head = 0xfd
 
 
@@ -21,16 +21,16 @@ EncodingFormat_Type = {
                         }
 
 ChipStatus_Type = {
-                    'ChipStatus_InitSuccessful':0x4A,#初始化成功回传
-                    'ChipStatus_CorrectCommand':0x41,#收到正确的命令帧回传
-                    'ChipStatus_ErrorCommand':0x45,#收到不能识别命令帧回传
-                    'ChipStatus_Busy':0x4E,#芯片忙碌状态回传
-                    'ChipStatus_Idle':0x4F #芯片空闲状态回传                  
+                    'ChipStatus_InitSuccessful':0x4A,#初始化成功回传 Initialization successful return
+                    'ChipStatus_CorrectCommand':0x41,#收到正确的命令帧回传 Receive the correct command frame back
+                    'ChipStatus_ErrorCommand':0x45,#收到不能识别命令帧回传 Received an unrecognized command frame and returned it
+                    'ChipStatus_Busy':0x4E,#芯片忙碌状态回传 Chip Busy Status Return
+                    'ChipStatus_Idle':0x4F #芯片空闲状态回传 Chip idle state return
                 }
 
 Style_Type = {
-                'Style_Single':0,#为 0，一字一顿的风格
-                'Style_Continue':1#为 1，正常合成
+                'Style_Single':0,#为 0，一字一顿的风格 is 0, word-by-word style
+                'Style_Continue':1#为 1，正常合成 1, normal synthesis
                 }#合成风格设置 [f?]
 
 Language_Type = {
@@ -56,7 +56,7 @@ Reader_Type = {
                 'Reader_XuDuo':52,#为 52，设置发音人为许多(男声)
                 'Reader_XiaoPing':53,#为 53，设置发音人为小萍(女声
                 'Reader_DonaldDuck':54,#为 54，设置发音人为唐老鸭(效果器)
-                'Reader_XuXiaoBao':55#为 55，设置发音人为许小宝(女童声)                
+                'Reader_XuXiaoBao':55#为 55，设置发音人为许小宝(女童声)
                 }#选择发音人 [m?]
 
 NumberHandle_Type = {

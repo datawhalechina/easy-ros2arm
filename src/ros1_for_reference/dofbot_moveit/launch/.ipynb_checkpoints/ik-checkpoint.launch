@@ -1,3 +1,0 @@
-<launch>
-    <node name="dofbot_ik" pkg="dofbot_moveit" type="dofbot_kinematics_ik" output="screen"/>
-</launch>

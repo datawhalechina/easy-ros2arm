@@ -7,9 +7,6 @@ import Arm_Lib
 
 class color_follow:
     def __init__(self):
-        '''
-        初始化一些参数
-        '''
         self.img = None
         self.target_servox=90
         self.target_servoy=45
@@ -31,9 +28,9 @@ class color_follow:
             cnt = max(cnts, key=cv.contourArea)
             (color_x, color_y), color_radius = cv.minEnclosingCircle(cnt)
             if color_radius > 10:
+                # Mark the detected color with the prototype coil
                 # 将检测到的颜色用原形线圈标记出来
                 cv.circle(self.img, (int(color_x), int(color_y)), int(color_radius), (255, 0, 255), 2)
-#                 cv.putText(self.img, follow_name, (300, 30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (105, 105, 105), 2)
                 self.xservo_pid.SystemOutput = color_x
                 self.xservo_pid.SetStepSignal(320)
                 self.xservo_pid.SetInertiaTime(0.01, 0.1)
@@ -43,16 +40,19 @@ class color_follow:
                     self.xservo_pid.SetInertiaTime(0.01, 0.1)
                     target_valuex = int(1500 + self.xservo_pid.SystemOutput)
                     self.target_servox = int((target_valuex - 500) / 10)
+                    # Set movement restrictions
                     # 设置移动限制
                     if self.target_servox > 180:self.target_servox = 180
                     if self.target_servox < 0: self.target_servox = 0
                 if not (self.target_servoy>=180 and color_y<=240 or self.target_servoy<=0 and color_y>=240):
+                    # Input Y axis direction parameter PID control input
                     # 输入Y轴方向参数PID控制输入
                     self.yservo_pid.SystemOutput = color_y
                     self.yservo_pid.SetStepSignal(240)
                     self.yservo_pid.SetInertiaTime(0.01, 0.1)
                     target_valuey = int(1500 + self.yservo_pid.SystemOutput)
                     self.target_servoy = int((target_valuey - 500) / 10) - 45
+                    # Set movement restrictions
                     # 设置移动限制
                     if self.target_servoy > 360: self.target_servoy = 360
                     if self.target_servoy < 0: self.target_servoy = 0
@@ -62,30 +62,36 @@ class color_follow:
 
     def get_hsv(self, img):
         '''
+        Get the range of HSV in a region
         获取某一区域的HSV的范围
-        :param img: 彩色图
-        :return: 图像和HSV的范围
+        :param img: 彩色图    color image
+        :return: 图像和HSV的范围   Image and HSV range
         '''
         H = [];S = [];V = []
         img = cv.resize(img, (640, 480), )
+        # Convert color image to HSV
         # 将彩色图转成HSV
         HSV = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+        # draw a rectangle
         # 画矩形框
         point_init_x=290
         point_init_y=300
         point_end_x=350
         point_end_y=360
         cv.rectangle(img, (point_init_x, point_init_y), (point_end_x, point_end_y), (0, 255, 0), 2)
+        # Take out the H, S, V values ​​of each row and column in turn and put them into the container
         # 依次取出每行每列的H,S,V值放入容器中
         for i in range(point_init_x, point_end_x):
             for j in range(point_init_y, point_end_y):
                 H.append(HSV[j, i][0])
                 S.append(HSV[j, i][1])
                 V.append(HSV[j, i][2])
+        # Calculate the maximum and minimum of H, S, and V respectively
         # 分别计算出H,S,V的最大最小
         H_min = min(H);H_max = max(H)
         S_min = min(S);S_max = max(S)
         V_min = min(V);V_max = max(V)
+        # HSV range adjustment
         # HSV范围调整
         if H_min - 2 < 0:H_min = 0
         else:H_min -= 2

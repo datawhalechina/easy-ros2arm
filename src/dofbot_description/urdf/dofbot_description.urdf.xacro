@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="dof6bot_description"/>
+    <xacro:include filename="$(find dofbot_description)/urdf/inc/create_link.xacro"/>
+
+    <xacro:create_link
+        link_name="base_link"
+        xyz_offset="0 0 0"
+        rpy_offset="0 0 0"
+        color_rgba="0.592156862745098 0.666666666666667 0.682352941176471 1"
+        mesh_package="dofbot_description"
+        mesh_name="base_link"
+    />
+
+    <xacro:create_link
+        link_name="link1"
+        xyz_offset="0 0 0"
+        rpy_offset="0 0 0"
+        color_rgba="0 0.627450980392157 0.235294117647059 1"
+        mesh_package="dofbot_description"
+        mesh_name="link1"
+    />
+
+    <xacro:create_link
+        link_name="link2"
+        xyz_offset="0 0 0"
+        rpy_offset="0 0 0"
+        color_rgba="0.592156862745098 0.666666666666667 0.682352941176471 1"
+        mesh_package="dofbot_description"
+        mesh_name="link2"
+    />
+
+    <xacro:create_link
+        link_name="link3"
+        xyz_offset="0 0 0"
+        rpy_offset="0 0 0"
+        color_rgba="0 0.627450980392157 0.235294117647059 1"
+        mesh_package="dofbot_description"
+        mesh_name="link3"
+    />
+
+    <xacro:create_link
+        link_name="link4"
+        xyz_offset="0 0 0"
+        rpy_offset="0 0 0"
+        color_rgba="0.592156862745098 0.666666666666667 0.682352941176471 1"
+        mesh_package="dofbot_description"
+        mesh_name="link4"
+    />
+
+    <xacro:create_link
+        link_name="link5"
+        xyz_offset="0 0 0"
+        rpy_offset="0 0 0"
+        color_rgba="1 1 1 1"
+        mesh_package="dofbot_description"
+        mesh_name="link5"
+    />
+
+    <joint name="base_joint" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="joint1" type="revolute">
+        <origin xyz="0 0 0.06605" rpy="-0.010805 0 0" />
+        <parent link="base_link" />
+        <child link="link1" />
+        <axis xyz="0 0 1" />
+        <limit effort="30.0" velocity="1.0" lower="-1.5708" upper="1.5708"/>
+    </joint>
+
+    <joint name="joint2" type="revolute">
+        <origin xyz="0 -0.00031873 0.04145" rpy="0 1.5708 0" />
+        <parent link="link1" />
+        <child link="link2" />
+        <axis xyz="0 0 1" />
+        <limit effort="30.0" velocity="1.0" lower="-1.5708" upper="1.5708"/>
+    </joint>
+
+    <joint name="joint3" type="revolute">
+        <origin xyz="-0.08285 0 0" rpy="0 0 0" />
+        <parent link="link2" />
+        <child link="link3" />
+        <axis xyz="0 0 1" />
+        <limit effort="30.0" velocity="1.0" lower="-1.5708" upper="1.5708"/>
+    </joint>
+
+    <joint name="joint4" type="revolute">
+        <origin xyz="-0.08285 0 0" rpy="0 0 0.0083081" />
+        <parent link="link3" />
+        <child link="link4" />
+        <axis xyz="0 0 1" />
+        <limit effort="30.0" velocity="1.0" lower="-1.5708" upper="1.5708"/>
+    </joint>
+
+    <joint name="joint5" type="revolute">
+        <origin xyz="-0.07385 -0.001 0" rpy="0 -1.57 0"/>
+        <axis xyz="0 0 1"/>
+        <parent link="link4"/>
+        <child link="link5"/>
+        <limit effort="30.0" velocity="1.0" lower="-1.5708" upper="3.1416"/>
+    </joint>
+</robot>

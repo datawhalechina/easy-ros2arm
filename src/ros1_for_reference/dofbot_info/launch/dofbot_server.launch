@@ -1,3 +1,0 @@
-<launch>
-    <node name="dofbot_server" pkg="dofbot_info" type="dofbot_server" output="screen"/>
-</launch>

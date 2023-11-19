@@ -1,9 +1,0 @@
-<library path="dofbot_hardware">
-    <class name="dofbot_hardware/DofbotHardwareInterface"
-            type="dofbot_hardware:DofbotHardwareInterface"
-            base_class_type="hardware_interface::SystemInterface">
-        <description>
-            hardward interface plugin of dofbot
-        </description>
-    </class>
-</library>

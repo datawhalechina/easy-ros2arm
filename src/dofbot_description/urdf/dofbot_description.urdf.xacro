@@ -57,13 +57,6 @@
         mesh_name="link5"
     />
 
-    <joint name="base_joint" type="fixed">
-        <parent link="world"/>
-        <child link="base_link"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <axis xyz="0 0 1"/>
-    </joint>
-
     <joint name="joint1" type="revolute">
         <origin xyz="0 0 0.06605" rpy="-0.010805 0 0" />
         <parent link="base_link" />

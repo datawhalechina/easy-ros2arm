@@ -3,7 +3,6 @@
 
     <xacro:include filename="$(find dofbot_description)/urdf/dofbot_description.urdf.xacro"/>
 
-    <link name="world"/>
     <xacro:dof6bot_description/>
 
     <xacro:include filename="$(find dofbot_description)/urdf/dofbot.ros2_control.xacro"/>

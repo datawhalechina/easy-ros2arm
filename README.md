@@ -9,17 +9,17 @@ The directory structure for this repo is as follows
 
 ```markdown
 |-src
-|	|-dofbot_classification #Subscribe camera data and item classification using YOLOv5.
-|	|
-|	|-dofbot_config #integration with a new robot by moveit_setup_assistance.
-|	|
-|	|-dofbot_description #describe and visualize robot using URDF, RViz.
-|	|
-|	|-dofbot_moveit #compute forward kinematics and inverse kinematics using MoveIt and KDL library.
-|	|
-|	|-dofbot_msgs #Create Imags msg interface by ros2 .
-|	|
-|	|-dofbot_sensors #Acquire camera data and publish it by ros2 topic publisher. 
+| |-dofbot_classification #Subscribe camera data and item classification using YOLOv5.
+| |
+| |-dofbot_config #integration with a new robot by moveit_setup_assistance.
+| |
+| |-dofbot_description #describe and visualize robot using URDF, RViz.
+| |
+| |-dofbot_moveit #compute forward kinematics and inverse kinematics using MoveIt and KDL library.
+| |
+| |-dofbot_msgs #Create Imags msg interface by ros2 .
+| |
+| |-dofbot_sensors #Acquire camera data and publish it by ros2 topic publisher. 
 ```
 
 

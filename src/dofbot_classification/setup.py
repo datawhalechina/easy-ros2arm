@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'dofbot_classificatioin'
+package_name = 'dofbot_classification'
 
 setup(
     name=package_name,

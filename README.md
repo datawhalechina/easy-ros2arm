@@ -1,5 +1,14 @@
 # dofbot_ros2
-Robotic arm with machine vision and its DOF is 6. Its function include forward kinematics and inverse kinematics solver, item classification, attached object detection, trajectory planning, and cartesian path. This project can become a basis for robotic arm development. 
+Robotic arm with machine vision and its DOF is 6.Its functions are as following.
+
+1.  forward kinematics and inverse kinematics solver
+2. attached object detection
+3. trajectory planning
+4.  cartesian path planning
+5.  item classification
+6. face follow
+
+ This project can become a basis of robotic arm development for beginners.
 
 
 

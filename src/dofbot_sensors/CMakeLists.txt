@@ -9,8 +9,10 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(dofbot_msgs REQUIRED)
 
-include_directories((${OpenCV_INCLUDE_DIRS}))
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -24,7 +26,10 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable()
-target_link_libraries(${OpenCV_LIBS})
+add_executable(picturePub src/publish_picture.cpp)
+ament_target_dependencies(picturePub rclcpp dofbot_msgs cv_bridge OpenCV)
+install(TARGETS
+picturePub
+DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

@@ -5,7 +5,7 @@
 
     <xacro:dof6bot_description/>
 
-    <xacro:include filename="$(find dofbot_description)/urdf/dofbot.ros2_control.xacro"/>
-    <xacro:dofbot_ros2_control name="dofbot"/>
+    <!-- <xacro:include filename="$(find dofbot_description)/urdf/dofbot.ros2_control.xacro"/>
+    <xacro:dofbot_ros2_control name="dofbot"/> -->
 
 </robot>

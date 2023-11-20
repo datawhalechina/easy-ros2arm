@@ -1,5 +1,5 @@
 # dofbot_ros2
-Robotic arm with machine vision and its os is ROS2.
+Robotic arm with machine vision and its DOF is 6. Its function include forward kinematics and inverse kinematics solver, item classification, attached object detection, trajectory planning, and cartesian path. This project can become a basis for robotic arm development. 
 
 
 
@@ -24,7 +24,9 @@ The directory structure for this repo is as follows
 
 
 
-## Develop Steps
+## Developing Suggestion
+
+The steps suggested is as following.
 
 1. dofbot_description
 

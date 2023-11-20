@@ -3,7 +3,7 @@
     <xacro:macro name="dofbot_ros2_control" params="name">
         <ros2_control name="${name}" type="system">
             <hardware>
-                <plugin>dofbot_hardware/DofbotHardwareInterface/</plugin>
+                <plugin>dofbot_hardware/DofbotHardwareInterface</plugin>
             </hardware>
 
             <joint name="joint1">

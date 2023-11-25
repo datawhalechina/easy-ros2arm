@@ -22,9 +22,11 @@ class JointStateSubscriber(Node):
         self.subscription
 
     def listener_callback(self, msg):
-        for n in msg.name[:5]:
+        for i,n in enumerate(msg.name):
+            self.get_logger().info('Joint Name: "%s"' % n)
             pos = self.acquire_position(n)
-            self.pos_arr[pos] = (msg.position[pos] * 180 / pi) + 90
+            self.get_logger().info('pos: "%d"' % pos)
+            self.pos_arr[pos] = (msg.position[i] * 180 / pi) + 90
         self.sbus.Arm_serial_servo_write6_array(self.pos_arr, 100)
     
     def acquire_position(self, name):

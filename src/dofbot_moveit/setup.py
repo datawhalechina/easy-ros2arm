@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'jointStateSub = dofbot_moveit.dofbot_move:main'
+            'jointStateSub = dofbot_moveit.dofbot_move:main',
+            'randomMove = dofbot_moveit.random_move:main'
         ],
     },
 )

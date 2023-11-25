@@ -8,7 +8,7 @@ class Arm_Device(object):
 
     def __init__(self):
         self.addr = 0x15
-        self.bus = smbus.SMBus(1)
+        self.bus = smbus.SMBus(7)
 
     # 设置总线舵机角度接口：id: 1-6(0是发6个舵机) angle: 0-180 设置舵机要运动到的角度
     #Set the bus servo angle interface: id: 1-6 (0 is to send 6 servos) angle: 0-180 Set the angle to which the servo should move
@@ -198,8 +198,8 @@ class Arm_Device(object):
             print("id must be 1 - 6")
             return None
         try:
-            self.bus.write_byte_data(self.addr, id + 0x30, 0x0)
-            time.sleep(0.003)
+            self.bus.write_byte_data(self.addr, id + 0x30, 0x01)
+            time.sleep(0.005)
             pos = self.bus.read_word_data(self.addr, id + 0x30)
         except:
             print('Arm_serial_servo_read I2C error')

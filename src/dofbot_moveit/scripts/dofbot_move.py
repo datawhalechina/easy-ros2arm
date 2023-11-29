@@ -18,7 +18,7 @@ class JointStateSubscriber(Node):
             self.listener_callback,
             5)
         self.sbus = Arm_Lib.Arm_Device()
-        self.pos_arr = [0.0, 0.0, 0.0, 0.0, 0.0, 90.0]
+        self.pos_arr = [0.0, 0.0, 0.0, 0.0, 0.0, 180.0]
         self.subscription
 
     def listener_callback(self, msg):

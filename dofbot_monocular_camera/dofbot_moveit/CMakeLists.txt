@@ -9,8 +9,12 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
+find_package(moveit_msgs REQUIRED)
+find_package(shape_msgs REQUIRED)
+find_package(moveit_visual_tools REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -33,9 +37,19 @@ ament_target_dependencies(motionPlaning
                     moveit_ros_planning_interface 
                     geometry_msgs)
 
+add_executable(collisionChecking src/attached_object.cpp)
+ament_target_dependencies(collisionChecking
+                          rclcpp
+                          moveit_ros_planning_interface
+                          moveit_msgs
+                          shape_msgs
+                          std_msgs
+                          moveit_visual_tools)
+
 install(TARGETS
       randomMove
       motionPlaning
+      collisionChecking
       DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

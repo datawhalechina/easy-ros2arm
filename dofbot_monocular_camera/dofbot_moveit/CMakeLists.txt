@@ -9,11 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(moveit_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(tf2 REQUIRED)
-find_package(moveit_ros_move_group REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 
 if(BUILD_TESTING)
@@ -29,14 +25,13 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(randomMove src/random_move.cpp)
-ament_target_dependencies(randomMove moveit_ros_planning_interface rclcpp moveit_ros_move_group)
+ament_target_dependencies(randomMove moveit_ros_planning_interface rclcpp)
 
 add_executable(motionPlaning src/motion_planing.cpp)
 ament_target_dependencies(motionPlaning 
                     rclcpp 
                     moveit_ros_planning_interface 
-                    geometry_msgs
-                    tf2)
+                    geometry_msgs)
 
 install(TARGETS
       randomMove

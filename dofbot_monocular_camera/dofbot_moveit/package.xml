@@ -11,10 +11,7 @@
 
   <depend>rclpy</depend>
   <depend>rclcpp</depend>
-  <depend>sensor_msgs</depend>
-  <depend>moveit_msgs</depend>
   <depend>geometry_msgs</depend>
-  <depend>moveit_ros_move_group</depend>
   <depend>moveit_ros_planning_interface</depend>
 
   <test_depend>ament_lint_auto</test_depend>

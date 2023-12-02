@@ -7,11 +7,10 @@ moveit_setup_assistant_config:
   package_settings:
     author_name: dongqianshan
     author_email: evan.wy.li@gmail.com
-    generated_timestamp: 1701359385
+    generated_timestamp: 1701413753
   control_xacro:
     command:
       - position
-      - velocity
     state:
       - position
       - velocity
@@ -21,7 +20,6 @@ moveit_setup_assistant_config:
   control_xacro:
     command:
       - position
-      - velocity
     state:
       - position
       - velocity

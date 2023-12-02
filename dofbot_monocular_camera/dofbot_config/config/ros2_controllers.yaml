@@ -8,7 +8,7 @@ controller_manager:
 
 
     dofbot_gripper_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
+      type: position_controllers/GripperActionController
 
 
     joint_state_broadcaster:
@@ -24,16 +24,9 @@ dofbot_arm_controller:
       - arm_joint5
     command_interfaces:
       - position
-      - velocity
     state_interfaces:
       - position
       - velocity
 dofbot_gripper_controller:
   ros__parameters:
     joint: grip_joint
-    command_interfaces:
-      - position
-      - velocity
-    state_interfaces:
-      - position
-      - velocity

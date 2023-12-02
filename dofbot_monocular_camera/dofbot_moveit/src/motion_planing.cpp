@@ -4,10 +4,6 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <moveit/move_group_interface/move_group_interface.h>
-#include <moveit_msgs/msg/planning_scene.hpp>
-#include <moveit_msgs/msg/display_trajectory.hpp>
-#include <tf2/LinearMath/Quaternion.h>
-#include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/pose.h>
 
 int main(int argc, char** argv){
@@ -32,29 +28,17 @@ int main(int argc, char** argv){
 
     move_group_interface.setStartStateToCurrentState();
 
-    geometry_msgs::msg::PoseStamped pose;
-    pose.pose.position.x = 0.0;
-    pose.pose.position.y = 0.05957241;
-    pose.pose.position.z = 0.1680498;
+    geometry_msgs::msg::Pose pose;
+    pose.position.x = 0.0037618483876896;
+    pose.position.y = 0.1128923321179022;
+    pose.position.z =  0.3998656334826569;
 
-    tf2::Quaternion quaternion;
-    double Roll = -140;
-    double Pitch = 0.0;
-    double Yaw = 0.0;
-    quaternion.setRPY(Roll * M_PI / 180.0, 
-                        Pitch * M_PI / 180.0,
-                        Yaw * M_PI / 180.0);
-    pose.pose.orientation.x = quaternion.x();
-    pose.pose.orientation.y = quaternion.y();
-    pose.pose.orientation.z = quaternion.z();
-    pose.pose.orientation.w = quaternion.w();
-
-    // std::vector<double> tolerance_pose(3, 0.01);
-    // std::vector<double> tolerance_angle(3, 0.01);
+    pose.orientation.x = -0.0042810851906468;
+    pose.orientation.y = -0.0033330592972940;
+    pose.orientation.z = 0.6827314913817025;
+    pose.orientation.w = 0.7306492138509612;
 
     std::string endLink = move_group_interface.getEndEffectorLink();
-    // RCLCPP_I
-    // move_group_interface.setPoseTargets(pose, endLink);
     move_group_interface.setPoseTarget(pose);
 
     int index = 0;

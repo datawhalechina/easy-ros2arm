@@ -32,17 +32,17 @@ class JointStateSubscriber(Node):
     
     def acquire_position(self, name):
         match name:
-            case 'joint1':
+            case 'arm_joint1':
                 return 0
-            case 'joint2':
+            case 'arm_joint2':
                 return 1
-            case 'joint3':
+            case 'arm_joint3':
                 return 2
-            case 'joint4':
+            case 'arm_joint4':
                 return 3
-            case 'joint5':
+            case 'arm_joint5':
                 return 4
-            case 'joint6':
+            case 'grip_joint':
                 return 5
         
             

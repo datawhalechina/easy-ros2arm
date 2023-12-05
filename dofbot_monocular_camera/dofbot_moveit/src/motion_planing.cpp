@@ -51,6 +51,7 @@ int main(int argc, char** argv){
 
         if(success){
             move_group_interface.execute(plan);
+            break;
         }else{
             RCLCPP_ERROR(logger, "Planning faild!");
         }

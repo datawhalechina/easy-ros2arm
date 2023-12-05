@@ -46,10 +46,20 @@ ament_target_dependencies(collisionChecking
                           std_msgs
                           moveit_visual_tools)
 
+add_executable(cartesianRoute src/cartesian_route.cpp)
+ament_target_dependencies(cartesianRoute
+                          rclcpp
+                          moveit_ros_planning_interface
+                          moveit_msgs
+                          shape_msgs
+                          std_msgs
+                          moveit_visual_tools)
+
 install(TARGETS
       randomMove
       motionPlaning
       collisionChecking
+      cartesianRoute
       DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

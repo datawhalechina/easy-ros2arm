@@ -15,6 +15,7 @@ find_package(moveit_ros_planning_interface REQUIRED)
 find_package(moveit_msgs REQUIRED)
 find_package(shape_msgs REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
+find_package(moveit_core REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -55,11 +56,22 @@ ament_target_dependencies(cartesianRoute
                           std_msgs
                           moveit_visual_tools)
 
+add_executable(multiTraj src/multi_trajectory_motion.cpp)
+ament_target_dependencies(multiTraj
+                          rclcpp
+                          moveit_ros_planning_interface
+                          moveit_msgs
+                          moveit_core
+                          shape_msgs
+                          std_msgs
+                          moveit_visual_tools)
+
 install(TARGETS
       randomMove
       motionPlaning
       collisionChecking
       cartesianRoute
+      multiTraj
       DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

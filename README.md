@@ -1,25 +1,18 @@
-# dofbot_ros2
-Robotic arm with machine vision and its DOF is 6.Its functions are as following.
+# easy-ros2Arm
+该项目旨在梳理6自由度机械臂相关知识，主要包含内容如下：
 
-1.  forward kinematics and inverse kinematics solver
-2. attached object detection
-3. trajectory planning
-4.  cartesian path planning
-5.  item classification
-6. face follow
+1. 运动学与逆运动学
+2. ROS2简介
+3. MoveIt简介
 
- This project can become a basis of robotic arm development for beginners.
+其中，ROS2与MoveIt会以视频的方式介绍；而运动学和逆运动学将以文本的形式介绍。
 
 
 
-## Directory Structure
-
-The directory structure for this repo is as follows
+## 代码结构
 
 ```markdown
 |-src
-| |-dofbot_classification #Subscribe camera data and item classification using YOLOv5.
-| |
 | |-dofbot_config #integration with a new robot by moveit_setup_assistance.
 | |
 | |-dofbot_description #describe and visualize robot using URDF, RViz.
@@ -29,44 +22,5 @@ The directory structure for this repo is as follows
 | |-dofbot_msgs #Create Imags msg interface by ros2 .
 | |
 | |-dofbot_sensors #Acquire camera data and publish it by ros2 topic publisher. 
-```
-
-
-
-## Developing Suggestion
-
-The steps suggested is as following.
-
-1. dofbot_description
-
-2. dofbot_config
-
-3. dofbot_moveit
-
-4. dofbot_msgs
-
-5. dofbot_sensors
-
-6. dofbot_classification
-
-
-
-## Requirements
-
-```python
-# HardWare
-Jetson Nano
-Jetson Orin Nano
-
-# os
-Ubuntu20.04 for ROS2
-# Ubuntu20.04 image for Jetson Nano
-https://github.com/Qengineering/Jetson-Nano-Ubuntu-20-image
-
-# ROS Version
-ROS2 Humble
-
-# Packages:
-OpenCV
 ```
 
